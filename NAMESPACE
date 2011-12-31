@@ -1,0 +1,3 @@
+useDynLib(NetComp)
+export(netIntersect, netDiff, netUnion, shortPaths, SimMeasure)
+import(igraph)
