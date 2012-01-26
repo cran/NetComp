@@ -5,13 +5,13 @@
 netIntersect(matrix1, matrix2, cutoff=NULL, absolute=TRUE, ...)
 }
 \arguments{
-  \item{matrix1}{Square matrix (e.g. corrolation or adjacency) containing
+  \item{matrix1}{Square matrix (e.g. correlation or adjacency) containing
     row/column labels} 
-  \item{matrix2}{Square matrix (e.g. corrolation or adjacency) containing
+  \item{matrix2}{Square matrix (e.g. correlation or adjacency) containing
     row/column labels}
   \item{cutoff}{The cutoff value. Edges less than this value (absolute value
-    condered)are converted to zero. }
-  \item{absolute}{Logical, should the abolute values be considered for the
+    considered)are converted to zero. }
+  \item{absolute}{Logical, should the absolute values be considered for the
     cutoff value.}
   \item{...}{Other parameters.}
 }
@@ -19,7 +19,7 @@ netIntersect(matrix1, matrix2, cutoff=NULL, absolute=TRUE, ...)
     Returns the intersection of the input matrices. Output object is an
     adjacency matrix where the edge weight is the average value of the absolute
     value of edges in BOTH matrices. Edges not present in either, or below the
-    \code{cutoff} sare removed or set to zero.
+    \code{cutoff} are removed or set to zero.
 }
 \details{
     Matrices must be square and have row and column labels. Output adjacency
@@ -31,7 +31,7 @@ netIntersect(matrix1, matrix2, cutoff=NULL, absolute=TRUE, ...)
 }
 \author{Shannon M. Bell}
 \references{
-  Bell SM, Last RL. SimGraph: Phenotypic Data to Graph Analysis.
+  Bell SM, Last RL. NetComp: Large Scale Data to Graph Analysis.
   Bioinformatics, in review
   }
 \examples{

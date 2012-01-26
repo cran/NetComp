@@ -1,6 +1,6 @@
 Package: NetComp
-Version: 0.1
-Date: 2011-12-31
+Version: 1.2
+Date: 2012-1-26
 Title: Network Generation and Comparison
 Author: Shannon M. Bell <bell.shannonm@gmail.com>
 Maintainer: Shannon M. Bell <bell.shannonm@gmail.com>
@@ -13,11 +13,8 @@ Description: This package contains functions to carry out analyse high
         containing uninformative (e.g. wildtype) or missing data can be
         calculated to report similarity of response.  A suite of graph
         comparisons using an adjacency or correlation matrix format are
-        included to facilitate quick network analysis. Additionally, a
-        function for calculating the path length of all vertices in a
-        network is provided to assist researchers in graph comparisons
-        for meta analysis.
+        included to facilitate quick network analysis.
 License: GPL (>= 3)
-Packaged: 2012-01-10 14:21:43 UTC; shannon
+Packaged: 2012-01-26 18:31:06 UTC; shannon
 Repository: CRAN
-Date/Publication: 2012-01-10 16:50:45
+Date/Publication: 2012-01-27 11:27:42

@@ -6,10 +6,12 @@
 *          	Department of Biochemistry & Molecular Biology
 *		Quantitative Biology
 *
-* Version 3.2	April 19, 2011
+* Version 2	January 28, 2012
 *
 * Notes: SMB conceived of the algorithm, and wrote an early version in R. SMB used skelton code provided by
 * Dr.Lyle Burgoon (EPA) to translate algorithm to C so that it can be run faster within R.
+* This algorithm is written to deal with data that has large numbers of missing or uninformative values
+* THe similarity is based on the percent difference between obsercations
 *******************************************************************************************************/
 
 
@@ -33,11 +35,11 @@ SEXP SimMeasure(SEXP data_matrix, SEXP thresh){
 		num_rows = nrows(data_matrix);
 	}
 	else{
-		REprintf("invalid matrix.\n");
+		Rprintf("invalid matrix.\n");
 		return R_NilValue;
 	}
 	if (isNull(thresh)){
-		REprintf("warning, setting threshold to 0 by default.\n");
+		Rprintf("warning, setting threshold to 0 by default.\n");
 		t = 0;
 	}
 	else{
@@ -46,7 +48,7 @@ SEXP SimMeasure(SEXP data_matrix, SEXP thresh){
 
 	//Check to see if the matrix has any null values
 	if (isNull(data_matrix)){
-		REprintf("matrix must not be NULL.\n");
+		Rprintf("matrix must not be NULL.\n");
 		return R_NilValue;
 	}
 
@@ -58,7 +60,7 @@ SEXP SimMeasure(SEXP data_matrix, SEXP thresh){
 			double cor_val = 0.0;
 			int count_row_nas = 0;
 			for(int wi = 0; wi < num_rows; wi++){
-				//REprintf("row_nas: %d\n", row_nas[wi]);
+				//Rprintf("row_nas: %d\n", row_nas[wi]);
 				//Check to see if we need to skip this row b/c BOTH of the elements are NA
 				if(ISNAN(rx[i * num_rows + wi]) && ISNAN(rx[q * num_rows + wi])){
 					count_row_nas++;
@@ -97,11 +99,11 @@ SEXP SimMeasure(SEXP data_matrix, SEXP thresh){
 				else{
 					if(rx[i * num_rows + wi] * rx[q * num_rows + wi] >= 0){
 						
-						pm = pm + 1-(fabs(fabs(rx[i * num_rows + wi]) - fabs(rx[q * num_rows + wi]))/((fabs(rx[i * num_rows + wi]) + fabs(rx[q * num_rows + wi]))/2));
+						pm = pm + 1-(fabs(fabs(rx[i * num_rows + wi]) - fabs(rx[q * num_rows + wi]))/(fabs(rx[i * num_rows + wi]) + fabs(rx[q * num_rows + wi])));
 						pcnt++;
 					}
 					else{
-						om = om + 1-(fabs(fabs(rx[i * num_rows + wi]) - fabs(rx[q * num_rows + wi]))/((fabs(rx[i * num_rows + wi]) + fabs(rx[q * num_rows + wi]))/2));
+						om = om + 1-(fabs(fabs(rx[i * num_rows + wi]) - fabs(rx[q * num_rows + wi]))/(fabs(rx[i * num_rows + wi]) + fabs(rx[q * num_rows + wi])));
 						ocnt++;
 					}
 				}
@@ -120,15 +122,3 @@ SEXP SimMeasure(SEXP data_matrix, SEXP thresh){
 	UNPROTECT(1);
 	return retval;				//return the correlation matrix
 }
-
-R_CallMethodDef callMethods[] =
-{
-    {"SimMeasure", (DL_FUNC)&SimMeasure, 1},
-    {NULL,NULL, 0}
-};
-
-void R_init_pretty_matrix(DllInfo *dll)
-{
-    R_registerRoutines(dll,NULL,callMethods,NULL,NULL);
-}
-

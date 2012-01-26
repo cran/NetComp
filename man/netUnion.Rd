@@ -5,18 +5,18 @@
 netUnion(matrix1, matrix2, cutoff=NULL, ...)
 }
 \arguments{
-  \item{matrix1}{Square matrix (e.g. corrolation or adjacency) containing
+  \item{matrix1}{Square matrix (e.g. correlation or adjacency) containing
     row/column labels} 
-  \item{matrix2}{Square matrix (e.g. corrolation or adjacency) containing
+  \item{matrix2}{Square matrix (e.g. correlation or adjacency) containing
     row/column labels}
   \item{cutoff}{The cutoff value. Edges less than this value (absolute value
-    condered)are converted to zero. }
+    considered)are converted to zero. }
   \item{...}{Other parameters.}
 }
 \description{
     Returns the union of the input matrices. Output object is an
     adjacency matrix where the edge weight is 1 if an edge is present in both
-    graphs, 0.5 if presnet in 1 graph, and 0 if present in neighter graph. Edges
+    graphs, 0.5 if present in 1 graph, and 0 if present in neither graph. Edges
     in both graphs failing to meet the \code{cutoff}, if provided, are set to
     zero before performing the graph union.
 }
@@ -30,7 +30,7 @@ netUnion(matrix1, matrix2, cutoff=NULL, ...)
 }
 \author{Shannon M. Bell}
 \references{
-  Bell SM, Last RL. SimGraph: Phenotypic Data to Graph Analysis.
+  Bell SM, Last RL. NetComp: Large Scale Data to Graph Analysis.
   Bioinformatics, in review
   }
 \examples{

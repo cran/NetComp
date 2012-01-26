@@ -1,3 +1,7 @@
 SimMeasure<-function(data, threshold=NULL, ...){
-    .Call("SimMeasure",data, threshold, pkg="NetComp" )
+    x<-.Call("SimMeasure",data, threshold, pkg="NetComp" )
+    if(!is.null(row.names(data))){
+        row.names(x)<-colnames(data); colnames(x)<-colnames(data)
+    }
+    x
 }
