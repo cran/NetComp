@@ -1,3 +1,3 @@
 useDynLib(NetComp)
-export(netIntersect, netDiff, netUnion, shortPaths, SimMeasure)
-import(igraph)
+export(netIntersect, netDiff, netUnion, shortPaths, netVal, SimMeasure, matrix_threshold)
+import(igraph, gdata)

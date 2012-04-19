@@ -3,6 +3,7 @@
 ##Description: Function to find the difference b/w 2 square matricies (comming out of correlation)
 ##O/S: for R
 ##Date: 12/9/2010
+##updated on 3/2/12 to increase the speed and improve memory usage
 ##Author: Shannon M. Bell
 ##Company: Michigan State University
 ###################################
@@ -17,24 +18,28 @@
 
 
 netDiff<-function(matrix1, matrix2, cutoff=NULL, ...){
+    if((row.names(matrix1) != colnames(matrix1)) || (nrow(matrix1) != ncol(matrix1))){
+        print("Matrix1 must be square and have same row/column names")
+        return(0)
+    }
+    if((row.names(matrix2) != colnames(matrix2)) || (nrow(matrix2) != ncol(matrix2))){
+        print("Matrix2 must be square and have same row/column names")
+        return(0)
+    }
     #ordering the graph
     matrix1<-matrix1[sort(row.names(matrix1)), sort(colnames(matrix1))]
     matrix2<-matrix2[sort(row.names(matrix2)), sort(colnames(matrix2))]
     #this part transforms mat1 and mat2 into a 1/0 graph
     #save the origional data for getting weights later on
     if(is.null(cutoff)){
-        matrix1[abs(matrix1) <=0 | is.na(matrix1)] <-0
-        ori.m1<-matrix1
-        matrix1[abs(matrix1) >0] <-1
-        matrix2[abs(matrix2) <=0 | is.na(matrix2)] <-0
-        matrix2[abs(matrix2) >0] <-1
+        ori.m1<-matrix_threshold(matrix1, threshold=0, minval=0, abs=TRUE, rm.na=TRUE, maxval=NULL)
+        matrix1<-matrix_threshold(matrix1, threshold=0, minval=0, abs=TRUE, rm.na=TRUE, maxval=1)
+        matrix2<-matrix_threshold(matrix2, threshold=0, minval=0, abs=TRUE, rm.na=TRUE, maxval=1)
     }
-    if(!is.null(cutoff)){
-        matrix1[abs(matrix1) <= cutoff | is.na(matrix1)] <-0
-        ori.m1<-matrix1
-        matrix1[abs(matrix1) > cutoff] <-1
-        matrix2[abs(matrix2) <= cutoff | is.na(matrix2)] <-0
-        matrix2[abs(matrix2) > cutoff] <-1
+    else{
+        ori.m1<-matrix_threshold(matrix1, threshold=cutoff, minval=0, abs=TRUE, rm.na=TRUE, maxval=NULL)
+        matrix1<-matrix_threshold(matrix1, threshold=cutoff, minval=0, abs=TRUE, rm.na=TRUE, maxval=1)
+        matrix2<-matrix_threshold(matrix2, threshold=cutoff, minval=0, abs=TRUE, rm.na=TRUE, maxval=1)
     }
     
     #need to put in error for in matrix1 or 2 is not square or is null
@@ -48,18 +53,12 @@ netDiff<-function(matrix1, matrix2, cutoff=NULL, ...){
     l1<-length(colnames(matrix1))
     l2<-length(colnames(matrix2))
     #this goes through and addes rows/col of 0 for missing in matrix2
-    if(length(missing2.names) >0){
-        temp<-NULL
-        for(i in 1:length(missing2.names)){
-            temp<-cbind(temp, rep(0,l2))
-        }
+    if(length(missing2.names) >0){ #if the #col unique to mat1 is >0
+        temp <- matrix(0, nrow = l2, ncol = length(missing2.names))
         temp<-as.data.frame(temp)
         colnames(temp)<-missing2.names
         m2.temp<-cbind(matrix2, temp)
-        temp2<-NULL
-        for(i in 1:length(missing2.names)){
-            temp2<-rbind(temp2, rep(0,length(total.names)))
-        }
+        temp2 <- matrix(0, nrow = length(missing2.names), ncol = length(total.names))
         temp2<-as.data.frame(temp2)
         colnames(temp2)<-colnames(m2.temp)
         rownames(temp2)<-missing2.names
@@ -68,18 +67,12 @@ netDiff<-function(matrix1, matrix2, cutoff=NULL, ...){
         m2<-matrix2
     }
     #this goes through and addes rows/col of 0 for missing in matrix1
-    if(length(missing1.names) >0){
-        temp<-NULL
-        for(i in 1:length(missing1.names)){
-            temp<-cbind(temp, rep(0,l1))
-        }
+    if(length(missing1.names) >0){ #if the #col unique to mat2 is >0
+        temp <- matrix(0, nrow = l1, ncol = length(missing1.names))
         temp<-as.data.frame(temp)
         colnames(temp)<-missing1.names
         m1.temp<-cbind(matrix1, temp)
-        temp2<-NULL
-        for(i in 1:length(missing1.names)){
-            temp2<-rbind(temp2, rep(0,length(total.names)))
-        }
+        temp2 <- matrix(0, nrow = length(missing1.names), ncol = length(total.names))
         temp2<-as.data.frame(temp2)
         colnames(temp2)<-colnames(m1.temp)
         rownames(temp2)<-missing1.names

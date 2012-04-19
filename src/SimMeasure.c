@@ -6,12 +6,13 @@
 *          	Department of Biochemistry & Molecular Biology
 *		Quantitative Biology
 *
-* Version 2	January 28, 2012
+* Version 3	March 2, 2012
 *
 * Notes: SMB conceived of the algorithm, and wrote an early version in R. SMB used skelton code provided by
 * Dr.Lyle Burgoon (EPA) to translate algorithm to C so that it can be run faster within R.
 * This algorithm is written to deal with data that has large numbers of missing or uninformative values
 * THe similarity is based on the percent difference between obsercations
+* Version 3 was updated to include handeling when both observations are 0 and thresh=0
 *******************************************************************************************************/
 
 
@@ -98,9 +99,14 @@ SEXP SimMeasure(SEXP data_matrix, SEXP thresh){
 				}
 				else{
 					if(rx[i * num_rows + wi] * rx[q * num_rows + wi] >= 0){
-						
-						pm = pm + 1-(fabs(fabs(rx[i * num_rows + wi]) - fabs(rx[q * num_rows + wi]))/(fabs(rx[i * num_rows + wi]) + fabs(rx[q * num_rows + wi])));
-						pcnt++;
+						if(rx[i * num_rows + wi]==0 && rx[q * num_rows + wi]==0){
+							pm = pm +1;
+							pcnt++;
+						}
+						else{
+							pm = pm + 1-(fabs(fabs(rx[i * num_rows + wi]) - fabs(rx[q * num_rows + wi]))/(fabs(rx[i * num_rows + wi]) + fabs(rx[q * num_rows + wi])));
+							pcnt++;
+						}
 					}
 					else{
 						om = om + 1-(fabs(fabs(rx[i * num_rows + wi]) - fabs(rx[q * num_rows + wi]))/(fabs(rx[i * num_rows + wi]) + fabs(rx[q * num_rows + wi])));

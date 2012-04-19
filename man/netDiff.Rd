@@ -31,7 +31,7 @@ netDiff(matrix1, matrix2, cutoff=NULL, ...)
 }
 \author{Shannon M. Bell}
 \references{
-  Bell SM, Last RL. NetComp: Large Scale Data to Graph Analysis.
+  Bell SM, Last RL. SimMeasure: A non-imputing approach to analyzing missing data.
   Bioinformatics, in review
   }
 \examples{
