@@ -27,10 +27,6 @@
     False Negatives, Adjusted Rand Index, and Balanced Accuracy.
 }
 \author{Shannon M. Bell}
-\references{
-  Bell SM, Last RL. SimMeasure: A non-imputing approach to analyzing missing data.
-  Bioinformatics, in review
-  }
   \seealso{
   \code{\link[stats]{hclust}{cutree}}
   }

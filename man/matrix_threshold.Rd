@@ -26,10 +26,7 @@ matrix_threshold(matrix, threshold=NULL, minval=0, maxval=NULL, abs=TRUE, rmna=F
     \code{max_threshold} returns an matrix with values removed according to parameters.
 }
 \author{Shannon M. Bell}
-\references{
-  Bell SM, Last RL. SimMeasure: A non-imputing approach to analyzing missing data.
-  Bioinformatics, in review
-  }
+
 \examples{
  #using USArrest dataset
  arrestCor<-cor(t(USArrests))

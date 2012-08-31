@@ -29,10 +29,6 @@ SimMeasure(data,  threshold=NULL, ...)
     to the similarity of the observed values.
 }
 \author{Shannon M. Bell}
-\references{
-  Bell SM, Last RL. SimMeasure: A non-imputing approach to analyzing missing data.
-  Bioinformatics, in review
-  }
 \examples{
  #using the state.x77
  sim<-SimMeasure(t(state.x77), threshold=NULL)

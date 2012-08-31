@@ -29,10 +29,6 @@ netUnion(matrix1, matrix2, cutoff=NULL, ...)
     both graphs.
 }
 \author{Shannon M. Bell}
-\references{
-  Bell SM, Last RL. SimMeasure: A non-imputing approach to analyzing missing data.
-  Bioinformatics, in review
-  }
 \examples{
  #using the state.x77 and USArrest datasets
  #remove data from states for illustration

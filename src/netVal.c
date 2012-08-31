@@ -9,8 +9,8 @@
 * Version 1	March 1, 2012
 *
 * Notes: SMB conceived of and wrote the algorithm.
-* This algorithm is written to compare 2 adjacency matricies (correlation) and calculate
-* the number of TP, FP, TN, FN based on communties defined from a heirctical tree
+# This algorithm is written to take an class list (ex, tree object) and convert it
+# into an adjacency matrix.  It is called by netClass and netVal
 *******************************************************************************************************/
 
 

@@ -30,10 +30,6 @@ netIntersect(matrix1, matrix2, cutoff=NULL, absolute=TRUE, ...)
     both graphs.
 }
 \author{Shannon M. Bell}
-\references{
-  Bell SM, Last RL. SimMeasure: A non-imputing approach to analyzing missing data.
-  Bioinformatics, in review
-  }
 \examples{
  #using the state.x77 and USArrests datasets
  arrestCor<-cor(t(USArrests))
